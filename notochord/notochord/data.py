@@ -17,7 +17,7 @@ class MIDIDataset(Dataset):
         self.transpose = transpose
         self.speed = speed
         self.start_token = 128
-        self.n_anon = 8
+        self.n_anon = 8  # number of 'anonymous' melodic and drum instruments
         self.prog_start_token = 0
         # self.clamp_time = clamp_time
         self.testing = False
