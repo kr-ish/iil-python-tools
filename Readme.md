@@ -35,6 +35,12 @@ pip install -e iipyper
 ```
 this will install all dependencies in a conda environment called `iil-python-tools`, and do an editable install of notochord and iipyper so you can hack on them.
 
+you might need to install `libasound2-dev` and `libjack-jackd2-dev` to get the `python-rtmidi` package succesfully installed:
+```
+# on linux
+$ sudo apt-get install libasound2-dev  libjack-jackd2-dev
+```
+
 # notochord
 download a model checkpoint (e.g. `notochord_lakh_20G.ckpt`) from the releases page: https://github.com/Intelligent-Instruments-Lab/iil-python-tools/releases
 
@@ -84,7 +90,10 @@ launch a training job:
 ```
 python notochord/train.py --data_dir /path/to/data/storage --log_dir /path/for/tensorboard/logs --model_dir /path/for/checkpoints --results_dir /path/for/other/logs train
 ```
-progress can be monitored via tensorboard.
+progress can be monitored via tensorboard:
+```
+tensorboard --logdir /path/for/tensorboard/logs --bind_all
+```
 
 # Develop
 

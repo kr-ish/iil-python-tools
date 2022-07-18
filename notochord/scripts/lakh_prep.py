@@ -15,6 +15,7 @@ def process(fnames):
     try:
         mid = PrettyMIDI(str(f))
     except Exception:
+        print(f'Could not load MIDI file {f}, skipping..')
         return
 
     # fix overlapping notes and add a margin for 
@@ -25,8 +26,9 @@ def process(fnames):
     # for each instrument
     for inst in mid.instruments:
         inst.remove_invalid_notes()
+        # map drums to instrument IDs 129-256 since we do not use channels
         program = inst.program + 128*inst.is_drum
-        
+
         # break out by pitch
         nbp = defaultdict(list)
         for n in inst.notes:
