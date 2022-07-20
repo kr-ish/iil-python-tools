@@ -114,7 +114,7 @@ OSCdef(\return, {
     (Process.elapsedTime - t).postln;
 }, '/prediction', nil);
 t = Process.elapsedTime;
-b.sendMsg("/predictor/predict",
+b.sendMsg("/notochord/predict",
     \inst, 0, \pitch, 60+12.rand, \time, 0, \vel, 0,
     \pitch_temp, 0.5, \rhythm_temp, 0.5, \timing_temp, 0.1
 );
@@ -153,7 +153,7 @@ t = nil;
 ~player_t = t;
 ~machine_t = t;
 
-b.sendMsg("/predictor/reset");
+b.sendMsg("/notochord/reset");
 
 ~global_kws = {
     //add a collection of global variables to an argument list
@@ -185,7 +185,7 @@ b.sendMsg("/predictor/reset");
 
     // kw.postln;
 
-    b.sendMsg("/predictor/predict", *kw);
+    b.sendMsg("/notochord/predict", *kw);
     ~pending_predictions = ~pending_predictions+1;
 
 };
@@ -201,7 +201,7 @@ b.sendMsg("/predictor/reset");
     {3}{
         ~gate = false;
         SystemClock.clear;
-        b.sendMsg("/predictor/reset");
+        b.sendMsg("/notochord/reset");
         ~synths.do(_.release(1.0));
         SystemClock.clear;
         ~step = 0;
@@ -367,7 +367,7 @@ OSCdef(\return, {
         }.play(SystemClock));
     };
     (end==1).if{
-        // b.sendMsg("/predictor/reset");
+        // b.sendMsg("/notochord/reset");
         //release the last note
         ~synths.do(_.release(1.0));
         ~release_all.(127);
@@ -395,7 +395,7 @@ t = nil;
 ~clear_pending_events.();
 ~synths.do(_.release(1.0));
 ~release_all.(0);
-b.sendMsg("/predictor/reset");
+b.sendMsg("/notochord/reset");
 ~player_inst = 128.rand+1;
 {~gate = true; MIDIdef.all[\input_on].func.value(127.rand+1, 60+12.rand)}.defer(0.2);
 // ~player_inst = 272;
@@ -417,7 +417,7 @@ t = nil;
 ~velocity_temp = 1;
 ~clear_pending_events.();
 ~release_all.(0);
-b.sendMsg("/predictor/reset");
+b.sendMsg("/notochord/reset");
 ~player_inst = 272;
 s = 2;
 {/*~seq = Routine{
